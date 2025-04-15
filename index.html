@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You My Cupcake</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8efe6; /* Light sage background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+        
+        h1 {
+            color: #6b8e6b; /* Sage green heading */
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background-color: #6b8e6b; /* Sage green button */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #5a7b5a; /* Darker sage on hover */
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .love-message {
+            position: absolute;
+            color: #6b8e6b; /* Sage green text */
+            font-weight: bold;
+            font-size: 1.5rem;
+            user-select: none;
+            white-space: nowrap;
+            animation: fadeOut 4s forwards;
+            z-index: 5;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+        
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Click For Love</h1>
+        <button id="loveButton">Show Your Love</button>
+    </div>
+
+    <script>
+        const loveButton = document.getElementById('loveButton');
+        const message = "I love you my cupcake 🧁";
+        
+        loveButton.addEventListener('click', function() {
+            // Create 50 messages at once for a massive display
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createLoveMessage();
+                }, i * 40); // Faster creation for more impact
+            }
+            
+            // Also add some floating hearts in the background
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 100);
+            }
+        });
+        
+        function createLoveMessage() {
+            const loveMessage = document.createElement('div');
+            loveMessage.classList.add('love-message');
+            loveMessage.textContent = message;
+            
+            // Random position across the entire screen
+            const posX = Math.random() * (window.innerWidth - 250);
+            const posY = Math.random() * (window.innerHeight - 50);
+            
+            // Random size variation for visual interest
+            const size = 1 + Math.random() * 1.5; // Size between 1x and 2.5x
+            
+            loveMessage.style.left = posX + 'px';
+            loveMessage.style.top = posY + 'px';
+            loveMessage.style.fontSize = size + 'rem';
+            
+            // Random rotation for fun effect
+            const rotation = Math.random() * 20 - 10; // -10 to +10 degrees
+            loveMessage.style.transform = `rotate(${rotation}deg)`;
+            
+            document.body.appendChild(loveMessage);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                if (document.body.contains(loveMessage)) {
+                    document.body.removeChild(loveMessage);
+                }
+            }, 4000);
+        }
+        
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '❤️';
+            heart.style.fontSize = (1 + Math.random() * 2) + 'rem';
+            
+            const posX = Math.random() * window.innerWidth;
+            const posY = Math.random() * window.innerHeight;
+            
+            heart.style.left = posX + 'px';
+            heart.style.top = posY + 'px';
+            
+            document.body.appendChild(heart);
+            
+            // Remove after some time
+            setTimeout(() => {
+                if (document.body.contains(heart)) {
+                    document.body.removeChild(heart);
+                }
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
